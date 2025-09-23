@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool canJump;
     [SerializeField] 
     private bool isSticky = false;
+    public bool haveStrawberry; //for demo only
 
     private Vector2 newVelocity;
     private Vector2 newForce;
