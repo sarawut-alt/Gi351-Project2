@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private bool canWalkOnSlope;
     [SerializeField]
     private bool canJump;
+    [SerializeField] 
+    private bool isSticky = false;
 
     private Vector2 newVelocity;
     private Vector2 newForce;
@@ -109,7 +112,11 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
         }
 
-        if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
+        if(isGrounded && !isJumping && isSticky) // มีสถานะ sticky
+        {
+            canJump = true;
+        }
+        else if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
         {
             canJump = true;
         }
@@ -173,7 +180,11 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if (slopeDownAngle > maxSlopeAngle || slopeSideAngle > maxSlopeAngle)
+        if (isSticky)
+        {
+            canWalkOnSlope = true;
+        }
+        else if (slopeDownAngle > maxSlopeAngle || slopeSideAngle > maxSlopeAngle)
         {
             canWalkOnSlope = false;
         }
@@ -182,13 +193,38 @@ public class PlayerController : MonoBehaviour
             canWalkOnSlope = true;
         }
 
-        if (isOnSlope && canWalkOnSlope && xInput == 0.0f)
+        // แก้ติดกำแพงเดินออกไม่ได้
+        bool verticalWallNextTo = (Mathf.RoundToInt(slopeSideAngle) > 89);
+        if (verticalWallNextTo)
+        {
+            canWalkOnSlope = true;
+        }
+
+
+        // before add sticky
+        /*if (isOnSlope && canWalkOnSlope && xInput == 0.0f)
         {
             rb.sharedMaterial = fullFriction;
         }
         else
         {
             rb.sharedMaterial = noFriction;
+        }*/
+
+        if (isSticky)
+        {
+            rb.sharedMaterial = fullFriction; // เหนียวตลอด
+        }
+        else
+        {
+            if (isOnSlope && canWalkOnSlope && xInput == 0.0f)
+            {
+                rb.sharedMaterial = fullFriction;
+            }
+            else
+            {
+                rb.sharedMaterial = noFriction;
+            }
         }
     }
 
@@ -213,6 +249,11 @@ public class PlayerController : MonoBehaviour
             newVelocity.Set(movementSpeed * xInput, 0.0f);
             rb.linearVelocity = newVelocity;
         }
+        /*else if (isGrounded && isOnSlope && isSticky)
+        {
+            newVelocity.Set(movementSpeed * xInput, 0.0f);
+            rb.linearVelocity = newVelocity;
+        }*/
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJumping) //If on slope
         {
             newVelocity.Set(movementSpeed * slopeNormalPerp.x * -xInput, movementSpeed * slopeNormalPerp.y * -xInput);
@@ -237,66 +278,24 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
-
-
-
-
-
-
-
-    /*public float moveSpeed = 5;
-    public float jumpForce = 5;
-
-    private Rigidbody2D rb;
-    private float horizontalInput;
-
-    private bool isGrounded;
-
-
-    InputAction moveAction;
-    InputAction jumpAction;
-    void Awake()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        moveAction = InputSystem.actions.FindAction("Move");
-        jumpAction = InputSystem.actions.FindAction("Jump");
-        rb = GetComponent<Rigidbody2D>();
-
-        moveAction.Enable();
-        jumpAction.Enable();
-
-    }
-
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        horizontalInput = moveAction.ReadValue<Vector2>().x;
-
-        rb.linearVelocity = new Vector2(horizontalInput * moveSpeed, rb.linearVelocity.y);
-
-        if (jumpAction.triggered && isGrounded)
+        // trigger ของเหนียว
+        if (other.CompareTag("Sticky"))
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            StartCoroutine(StickyEffect(10f)); // เหนียว 10 วิ
+            Destroy(other.gameObject);
         }
     }
-
     
 
-
-    void OnCollisionEnter2D(Collision2D collision)
+    IEnumerator StickyEffect(float time)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
+        isSticky = true;
+
+        yield return new WaitForSeconds(time);
+
+        isSticky = false;
     }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
-    }*/
-
 
 }
