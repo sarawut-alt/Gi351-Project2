@@ -27,7 +27,7 @@ public class BackGroundController : MonoBehaviour
         distanceBackGroundShouldMove = Cam.transform.position.x * parallaxEffectFactor; 
         cameraRelativeMovement = Cam.transform.position.x * (1 - parallaxEffectFactor);//determine when bg needs to loop
         
-        transform.position = new Vector3(startingHorizontalPosition + distanceBackGroundShouldMove, transform.position.y, transform.position.z);
+        transform.position = new Vector3(startingHorizontalPosition + distanceBackGroundShouldMove, Cam.transform.position.y, transform.position.z);
 
         if (cameraRelativeMovement > startingHorizontalPosition + spriteWidth)
         {
