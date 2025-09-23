@@ -41,8 +41,14 @@ TagManager:
   - name: BGKitchen
     uniqueID: 3903792313
     locked: 0
+  - name: Chair
+    uniqueID: 2414605979
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: table
+    uniqueID: 2137746945
     locked: 0
   - name: Player
     uniqueID: 2954534117
