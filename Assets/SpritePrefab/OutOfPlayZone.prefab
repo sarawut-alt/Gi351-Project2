@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4db6b8e9701ab51479325ba2303f94ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OutOfPlayZone
+  pos: {x: -13.95, y: 0.181, z: 0}
 --- !u!61 &7113631518352093376
 BoxCollider2D:
   m_ObjectHideFlags: 0
