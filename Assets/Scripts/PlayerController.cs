@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
     private float slopeDownAngle;
     private float slopeSideAngle;
     private float lastSlopeAngle;
+    [SerializeField]
+    private float stickyEffectTime = 10f;
 
     private int facingDirection = 1;
 
@@ -198,7 +200,14 @@ public class PlayerController : MonoBehaviour
         if (verticalWallNextTo)
         {
             canWalkOnSlope = true;
-            canJump = false;
+            if (isSticky)
+            {
+                canJump = true;
+            }
+            else
+            {
+                canJump = false;
+            }
         }
 
 
@@ -284,7 +293,7 @@ public class PlayerController : MonoBehaviour
         // trigger ของเหนียว
         if (other.CompareTag("Sticky"))
         {
-            StartCoroutine(StickyEffect(10f)); // เหนียว 10 วิ
+            StartCoroutine(StickyEffect(stickyEffectTime));
             Destroy(other.gameObject);
         }
     }
