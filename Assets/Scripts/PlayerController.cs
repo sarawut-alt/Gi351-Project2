@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         if (verticalWallNextTo)
         {
             canWalkOnSlope = true;
+            canJump = false;
         }
 
 
