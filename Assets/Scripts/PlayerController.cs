@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.Mathematics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -24,6 +25,17 @@ public class PlayerController : MonoBehaviour
     private PhysicsMaterial2D noFriction;
     [SerializeField]
     private PhysicsMaterial2D fullFriction;
+
+    [SerializeField, Range(0, 1)]
+    private float smoothDampTime = 0.125f;
+
+    private Vector2 smoothDampVelocity = Vector2.zero;//for Vector2.smoothdamp to remember previous velocity
+
+    
+    [SerializeField] private float defaultGravityScale = 1.0f; // The standard gravity for jumping up
+    [SerializeField] private float fallGravityMultiplier = 2.0f; // How much stronger gravity is when falling
+    [SerializeField] private float maxFallSpeed = 10.0f; // Maximum downward velocity
+    
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -68,6 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         cc = GetComponent<CapsuleCollider2D>();
+        rb.gravityScale = defaultGravityScale; // Set initial gravity
 
         capsuleColliderSize = cc.size;
     }
@@ -82,6 +95,7 @@ public class PlayerController : MonoBehaviour
         CheckGround();
         SlopeCheck();
         ApplyMovement();
+        ApplyGravityModifiers();//make player fall faster
     }
 
     private void CheckInput()
@@ -245,20 +259,36 @@ public class PlayerController : MonoBehaviour
         {
             canJump = false;
             isJumping = true;
-            newVelocity.Set(0.0f, 0.0f);
-            rb.linearVelocity = newVelocity;
+            //newVelocity.Set(0.0f, 0.0f);
+            //rb.linearVelocity = newVelocity;
             newForce.Set(0.0f, jumpForce);
             rb.AddForce(newForce, ForceMode2D.Impulse);
         }
     }
 
+    private void ApplyGravityModifiers()// make player fall faster
+    {
+        if (rb.linearVelocityY < 0)//check if player is falling
+        {
+            rb.gravityScale = defaultGravityScale * fallGravityMultiplier; // Player is falling, so increase gravity
+
+            rb.linearVelocity = new Vector2(rb.linearVelocityX, Mathf.Max(rb.linearVelocityY, -maxFallSpeed)); //limit max fall speed
+        }
+        else//player is not falling, so gravity is default (-9.81 * defaultGravityScale)
+        {
+            rb.gravityScale = defaultGravityScale;
+        }
+        Debug.Log(rb.linearVelocityY);
+    }
+
     private void ApplyMovement()
     {
+        newVelocity = Vector2.zero; // make sure newVelocity would not retain value from previous frame
         if (isGrounded && !isOnSlope && !isJumping) //if not on slope
         {
             Debug.Log("This one");
             newVelocity.Set(movementSpeed * xInput, 0.0f);
-            rb.linearVelocity = newVelocity;
+            //rb.linearVelocity = newVelocity;
         }
         /*else if (isGrounded && isOnSlope && isSticky)
         {
@@ -268,14 +298,15 @@ public class PlayerController : MonoBehaviour
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJumping) //If on slope
         {
             newVelocity.Set(movementSpeed * slopeNormalPerp.x * -xInput, movementSpeed * slopeNormalPerp.y * -xInput);
-            rb.linearVelocity = newVelocity;
+            //rb.linearVelocity = newVelocity;
         }
         else if (!isGrounded) //If in air
         {
             newVelocity.Set(movementSpeed * xInput, rb.linearVelocity.y);
-            rb.linearVelocity = newVelocity;
+            //rb.linearVelocity = newVelocity;
         }
 
+        rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, newVelocity, ref smoothDampVelocity, smoothDampTime); //smoothDampVelocity is used to track the rate of velocity change
     }
 
     private void Flip()
