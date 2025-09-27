@@ -1153,6 +1153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraController
   player: {fileID: 1337770269}
   offset: {x: 0, y: 0, z: -5}
+  smoothDuration: 0.125
 --- !u!1001 &334644359
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4875,7 +4876,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movementSpeed: 5
   groundCheckRadius: 0.3
-  jumpForce: 7
+  jumpForce: 8.75
   slopeCheckDistance: 0.5
   maxSlopeAngle: 30
   groundCheck: {fileID: 327060634}
@@ -4884,6 +4885,10 @@ MonoBehaviour:
     m_Bits: 8
   noFriction: {fileID: 6200000, guid: 8c4ca5f9c6fa5f8408526ec3a742446d, type: 2}
   fullFriction: {fileID: 6200000, guid: b2403b286d1cdff47afe553d82120fc5, type: 2}
+  smoothDampTime: 0.12
+  defaultGravityScale: 1.4
+  fallGravityMultiplier: 2
+  maxFallSpeed: 15
   stickyEffectTime: 10
   isGrounded: 0
   isJumping: 0
