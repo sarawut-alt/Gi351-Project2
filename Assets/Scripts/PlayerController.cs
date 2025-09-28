@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using Unity.Mathematics;
+using System;
+using NUnit.Framework;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,16 +28,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PhysicsMaterial2D fullFriction;
 
-    [SerializeField, Range(0, 1)]
+    [SerializeField, UnityEngine.Range(0, 1)]
     private float smoothDampTime = 0.125f;
 
     private Vector2 smoothDampVelocity = Vector2.zero;//for Vector2.smoothdamp to remember previous velocity
 
-    
+
     [SerializeField] private float defaultGravityScale = 1.0f; // The standard gravity for jumping up
     [SerializeField] private float fallGravityMultiplier = 2.0f; // How much stronger gravity is when falling
     [SerializeField] private float maxFallSpeed = 10.0f; // Maximum downward velocity
-    
+
 
     private InputAction moveAction;
     private InputAction jumpAction;
@@ -57,18 +59,20 @@ public class PlayerController : MonoBehaviour
     private bool canWalkOnSlope;
     [SerializeField]
     private bool canJump;
-    [SerializeField] 
+    [SerializeField]
     private bool isSticky = false;
     public bool haveStrawberry; //for demo only
 
     private Vector2 newVelocity;
     private Vector2 newForce;
-    private Vector2 capsuleColliderSize;
+    private Vector2 boxColliderSize;
 
     private Vector2 slopeNormalPerp;
 
     private Rigidbody2D rb;
-    private CapsuleCollider2D cc;
+    private BoxCollider2D boxCollider2D;
+
+    Animator animator;
 
     private void Awake()
     {
@@ -79,15 +83,18 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        cc = GetComponent<CapsuleCollider2D>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
         rb.gravityScale = defaultGravityScale; // Set initial gravity
 
-        capsuleColliderSize = cc.size;
+        animator = GetComponent<Animator>();
+
+        boxColliderSize = boxCollider2D.size;
     }
 
     private void Update()
     {
         CheckInput();
+        SetAnimationVariables();
     }
 
     private void FixedUpdate()
@@ -124,12 +131,12 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
-        if (rb.linearVelocity.y <= 0.0f)
+        if (rb.linearVelocity.y <= 0.0f || isGrounded)
         {
             isJumping = false;
         }
 
-        if(isGrounded && !isJumping && isSticky) // มีสถานะ sticky
+        if (isGrounded && !isJumping && isSticky) // มีสถานะ sticky
         {
             canJump = true;
         }
@@ -142,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     private void SlopeCheck()
     {
-        Vector2 checkPos = transform.position - (Vector3)(new Vector2(0.0f, capsuleColliderSize.y / 2));
+        Vector2 checkPos = transform.position - (Vector3)(new Vector2(0.0f, boxColliderSize.y / 2));
 
         SlopeCheckHorizontal(checkPos);
         SlopeCheckVertical(checkPos);
@@ -329,7 +336,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
     }
-    
+
 
     IEnumerator StickyEffect(float time)
     {
@@ -340,4 +347,13 @@ public class PlayerController : MonoBehaviour
         isSticky = false;
     }
 
+    private void SetAnimationVariables()
+    {
+        animator.SetBool("isJumpingAnim", isJumping);
+        animator.SetBool("isFallingAnim", rb.linearVelocityY < 0.1f);//not 0 because somtimes it does not fall when jump to platform
+        animator.SetBool("isGroundAnim", isGrounded);
+        animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocityX));
+        animator.SetFloat("yVelocity", rb.linearVelocityY);
+
+    }
 }
