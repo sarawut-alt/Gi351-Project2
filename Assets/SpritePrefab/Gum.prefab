@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5551444118653906730}
   - component: {fileID: 1112537858958161677}
   - component: {fileID: 8256407773535915609}
+  - component: {fileID: 138164976814563888}
   m_Layer: 0
   m_Name: Gum
   m_TagString: Sticky
@@ -137,3 +138,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &138164976814563888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827780014940292001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7896f99b561754498a7236b1947b9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Sticky
+  respawnTime: 3

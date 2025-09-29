@@ -7,7 +7,7 @@ using Unity.Mathematics;
 using System;
 using NUnit.Framework;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControllerOld : MonoBehaviour
 {
     [SerializeField]
     private float movementSpeed;
