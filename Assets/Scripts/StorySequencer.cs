@@ -14,11 +14,17 @@ public class StorySequencer : MonoBehaviour
     [SerializeField] private float timeToChangeImg = 3.0f;
 
     [SerializeField] private bool nextPrepare = true;
+
+    [SerializeField] GameObject continueButton;
+
+    private void Start()
+    {
+        continueButton.SetActive(false);
+    }
     private void FixedUpdate()
     {
         if(idx >= cutsceneSprites.Length)
         {
-            gameObject.SetActive(false);
             return;
         }
         ShowCurrentStory();
@@ -30,6 +36,10 @@ public class StorySequencer : MonoBehaviour
     public void ShowCurrentStory()
     {
         cutsceneImage.sprite = cutsceneSprites[idx];
+        if(idx == cutsceneSprites.Length - 1)
+        {
+            continueButton.SetActive(true);
+        }
     }
     
 
@@ -39,5 +49,10 @@ public class StorySequencer : MonoBehaviour
         yield return new WaitForSeconds(timeToChangeImg);
         idx++;
         nextPrepare = true;
+    }
+
+    public void OnContinueClicked()
+    {
+        gameObject.SetActive(false);
     }
 }
