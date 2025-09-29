@@ -10,7 +10,23 @@ public class GameManager : MonoBehaviour
     {
         winPanel.SetActive(false);
     }
-
+    #region sigleton
+    private static GameManager instance;
+    public static GameManager GetInstance()
+    {
+        return instance;
+    }
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        //DontDestroyOnLoad(gameObject);
+    }
+    #endregion
     // Update is called once per frame
     void FixedUpdate()
     {

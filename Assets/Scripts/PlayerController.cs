@@ -7,10 +7,11 @@ using Unity.Mathematics;
 using System;
 using NUnit.Framework;
 
-public class PlayerControllerOld : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float movementSpeed;
+    [SerializeField] private float gumSlowScale;
     [SerializeField]
     private float groundCheckRadius;
     [SerializeField]
@@ -43,19 +44,20 @@ public class PlayerControllerOld : MonoBehaviour
     private InputAction jumpAction;
 
     private float xInput;
-    private float slopeDownAngle;
-    private float slopeSideAngle;
-    private float lastSlopeAngle;
     [SerializeField]
-    private float stickyEffectTime = 10f;
+    public float stickyEffectTime = 10f;
 
     private int facingDirection = 1;
+    [SerializeField]
+    private int Strawberry;
 
     [SerializeField]
     private bool isGrounded;
+    [SerializeField]
     private bool isOnSlope;
     [SerializeField]
     private bool isJumping;
+    [SerializeField]
     private bool canWalkOnSlope;
     [SerializeField]
     private bool canJump;
@@ -71,6 +73,11 @@ public class PlayerControllerOld : MonoBehaviour
 
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider2D;
+
+    private SpriteRenderer spriteRenderer;
+
+    private Color originalColor;
+    public Color warningColor = Color.red;
 
     Animator animator;
 
@@ -89,22 +96,33 @@ public class PlayerControllerOld : MonoBehaviour
         animator = GetComponent<Animator>();
 
         boxColliderSize = boxCollider2D.size;
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
     }
 
     private void Update()
     {
         CheckInput();
+        CheckGround();
+        if(isSticky)
+        {
+            CheckWall();
+        }
         SetAnimationVariables();
     }
-
     private void FixedUpdate()
     {
-        CheckGround();
-        SlopeCheck();
+        //CheckGround();
+        //SlopeCheck();
         ApplyMovement();
         ApplyGravityModifiers();//make player fall faster
     }
 
+    #region Walk
     private void CheckInput()
     {
         xInput = moveAction.ReadValue<Vector2>().x;
@@ -127,8 +145,43 @@ public class PlayerControllerOld : MonoBehaviour
         }
 
     }
+    private void Flip()
+    {
+        facingDirection *= -1;
+        transform.Rotate(0.0f, 180.0f, 0.0f);
+    }
+    #endregion
+
     private void CheckGround()
     {
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        if (rb.linearVelocity.y <= 0.0f /*|| isGrounded*/)
+        {
+            isJumping = false;
+        }
+        
+
+        /*if (isGrounded && !isJumping && isSticky) // มีสถานะ sticky
+        {
+            canJump = true;
+        }*/
+        if (isOnSlope && !isSticky)
+        {
+            canJump = false;
+        }
+        else if (isGrounded && !isJumping)
+        {
+            canJump = true;
+        }
+
+
+
+    }
+    private void CheckWall()
+    {
+
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
 
         if (rb.linearVelocity.y <= 0.0f || isGrounded)
@@ -136,133 +189,23 @@ public class PlayerControllerOld : MonoBehaviour
             isJumping = false;
         }
 
-        if (isGrounded && !isJumping && isSticky) // มีสถานะ sticky
+        /*if (isGrounded && !isJumping && isSticky) // มีสถานะ sticky
         {
             canJump = true;
-        }
-        else if (isGrounded && !isJumping && slopeDownAngle <= maxSlopeAngle)
-        {
-            canJump = true;
-        }
-
-    }
-
-    private void SlopeCheck()
-    {
-        Vector2 checkPos = transform.position - (Vector3)(new Vector2(0.0f, boxColliderSize.y / 2));
-
-        SlopeCheckHorizontal(checkPos);
-        SlopeCheckVertical(checkPos);
-    }
-
-    private void SlopeCheckHorizontal(Vector2 checkPos)
-    {
-        RaycastHit2D slopeHitFront = Physics2D.Raycast(checkPos, transform.right, slopeCheckDistance, whatIsGround);
-        RaycastHit2D slopeHitBack = Physics2D.Raycast(checkPos, -transform.right, slopeCheckDistance, whatIsGround);
-
-        if (slopeHitFront)
-        {
-            isOnSlope = true;
-
-            slopeSideAngle = Vector2.Angle(slopeHitFront.normal, Vector2.up);
-
-        }
-        else if (slopeHitBack)
-        {
-            isOnSlope = true;
-
-            slopeSideAngle = Vector2.Angle(slopeHitBack.normal, Vector2.up);
-        }
-        else
-        {
-            slopeSideAngle = 0.0f;
-            isOnSlope = false;
-        }
-
-    }
-
-    private void SlopeCheckVertical(Vector2 checkPos)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(checkPos, Vector2.down, slopeCheckDistance, whatIsGround);
-
-        if (hit)
-        {
-
-            slopeNormalPerp = Vector2.Perpendicular(hit.normal).normalized;
-
-            slopeDownAngle = Vector2.Angle(hit.normal, Vector2.up);
-
-            if (slopeDownAngle != lastSlopeAngle)
-            {
-                isOnSlope = true;
-            }
-
-            lastSlopeAngle = slopeDownAngle;
-
-            Debug.DrawRay(hit.point, slopeNormalPerp, Color.blue);
-            Debug.DrawRay(hit.point, hit.normal, Color.green);
-
-        }
-
-        if (isSticky)
-        {
-            canWalkOnSlope = true;
-        }
-        else if (slopeDownAngle > maxSlopeAngle || slopeSideAngle > maxSlopeAngle)
-        {
-            canWalkOnSlope = false;
-        }
-        else
-        {
-            canWalkOnSlope = true;
-        }
-
-        // แก้ติดกำแพงเดินออกไม่ได้
-        bool verticalWallNextTo = (Mathf.RoundToInt(slopeSideAngle) > 89);
-        if (verticalWallNextTo)
-        {
-            canWalkOnSlope = true;
-            if (isSticky)
-            {
-                canJump = true;
-            }
-            else
-            {
-                canJump = false;
-            }
-        }
-
-
-        // before add sticky
-        /*if (isOnSlope && canWalkOnSlope && xInput == 0.0f)
-        {
-            rb.sharedMaterial = fullFriction;
-        }
-        else
-        {
-            rb.sharedMaterial = noFriction;
         }*/
+        if (isOnSlope && !isSticky)
+        {
+            canJump = false;
+        }
+        else if (isGrounded && !isJumping)
+        {
+            canJump = true;
+        }
 
-        if (isSticky)
-        {
-            rb.sharedMaterial = fullFriction; // เหนียวตลอด
-        }
-        else
-        {
-            if (isOnSlope && canWalkOnSlope && xInput == 0.0f)
-            {
-                rb.sharedMaterial = fullFriction;
-            }
-            else
-            {
-                rb.sharedMaterial = noFriction;
-            }
-        }
     }
-
     private void Jump()
     {
-        if (canJump)
+        if (canJump && isGrounded)
         {
             canJump = false;
             isJumping = true;
@@ -272,7 +215,6 @@ public class PlayerControllerOld : MonoBehaviour
             rb.AddForce(newForce, ForceMode2D.Impulse);
         }
     }
-
     private void ApplyGravityModifiers()// make player fall faster
     {
         if (rb.linearVelocityY < 0)//check if player is falling
@@ -304,8 +246,13 @@ public class PlayerControllerOld : MonoBehaviour
         }*/
         else if (isGrounded && isOnSlope && canWalkOnSlope && !isJumping) //If on slope
         {
-            newVelocity.Set(movementSpeed * slopeNormalPerp.x * -xInput, movementSpeed * slopeNormalPerp.y * -xInput);
+            newVelocity.Set(movementSpeed /** slopeNormalPerp.x*/ * xInput, rb.linearVelocity.y);
             //rb.linearVelocity = newVelocity;
+        }
+        else if (isGrounded && isOnSlope && !canWalkOnSlope && !isJumping)
+        {
+            newVelocity.Set(0.0f, -7f);
+
         }
         else if (!isGrounded) //If in air
         {
@@ -316,10 +263,41 @@ public class PlayerControllerOld : MonoBehaviour
         rb.linearVelocity = Vector2.SmoothDamp(rb.linearVelocity, newVelocity, ref smoothDampVelocity, smoothDampTime); //smoothDampVelocity is used to track the rate of velocity change
     }
 
-    private void Flip()
+    public void SetIsOnSlope(bool isOnSlope)
     {
-        facingDirection *= -1;
-        transform.Rotate(0.0f, 180.0f, 0.0f);
+        this.isOnSlope = isOnSlope;
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Slope"))
+        {
+            rb.sharedMaterial = noFriction;
+            if (!isSticky)
+            {
+                canWalkOnSlope = false;
+            }
+
+            SetIsOnSlope(true);
+
+        }
+        else if (collision.CompareTag("Sticky"))
+        {
+            StartCoroutine(StickyEffect(stickyEffectTime));
+            collision.GetComponent<Sticky>().CollectSticky(stickyEffectTime);
+            GameManager.GetInstance().GetComponent<BuffCooldownUI>().isStickyActive = true;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Slope"))
+        {
+            // normal fricctionn
+            canWalkOnSlope = true;
+            SetIsOnSlope(false);
+        }
+        
     }
 
     private void OnDrawGizmos()
@@ -327,26 +305,35 @@ public class PlayerControllerOld : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // trigger ของเหนียว
-        if (other.CompareTag("Sticky"))
-        {
-            StartCoroutine(StickyEffect(stickyEffectTime));
-            Destroy(other.gameObject);
-        }
-    }
-
-
     IEnumerator StickyEffect(float time)
     {
         isSticky = true;
+        canWalkOnSlope = true;
+        float temp = movementSpeed;
+        movementSpeed *= gumSlowScale;
 
-        yield return new WaitForSeconds(time);
+        float elapsedTime = 0f; // ตัวแปรนับเวลาที่ผ่านไป
+        // วนลูปจนกว่าเวลาที่ผ่านไปจะเท่ากับ disappearDelay
+        while (elapsedTime < time)
+        {
+            // เพิ่มเวลาที่ผ่านไปในแต่ละเฟรม
+            elapsedTime += Time.deltaTime;
 
+            // คำนวณค่า t (0 ถึง 1) เพื่อใช้ในการ Lerp สี
+            float t = elapsedTime / time;
+
+            // เปลี่ยนสีของ SpriteRenderer โดยค่อยๆ ผสมจากสีเดิม (warningColor) ไปยังสีเตือน (originalColor)
+            spriteRenderer.color = Color.Lerp(warningColor, originalColor, t);
+
+            // รอจนถึงเฟรมถัดไปแล้วค่อยทำงานต่อ
+            yield return null;
+        }
+
+        //yield return new WaitForSeconds(time);
         isSticky = false;
+        canWalkOnSlope = true;
+        movementSpeed = temp;
     }
-
     private void SetAnimationVariables()
     {
         animator.SetBool("isJumpingAnim", isJumping);
@@ -355,5 +342,14 @@ public class PlayerControllerOld : MonoBehaviour
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocityX));
         animator.SetFloat("yVelocity", rb.linearVelocityY);
 
+    }
+
+    public void AddStrawberry()
+    {
+        Strawberry++;
+    }
+    public int GetStrawberry()
+    {
+        return Strawberry;
     }
 }
