@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3309235582258769474}
   - component: {fileID: 6586961978795490353}
   m_Layer: 0
-  m_Name: Finish flag
+  m_Name: Finish flags
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
