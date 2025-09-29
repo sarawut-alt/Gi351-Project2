@@ -5,11 +5,11 @@ public class Sticky : MonoBehaviour
 {
     public float respawnTime = 11f;
 
-    public void CollectSticky(float time)
+    public void CollectSticky()
     {
         StartCoroutine(RespawnSticky());
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
 
     }
 
@@ -17,7 +17,7 @@ public class Sticky : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnTime);
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        gameObject.GetComponent<PolygonCollider2D>().enabled = true;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
     }
 }
