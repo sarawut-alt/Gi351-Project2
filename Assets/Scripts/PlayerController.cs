@@ -336,7 +336,7 @@ public class PlayerController : MonoBehaviour
     }
     private void SetAnimationVariables()
     {
-        animator.SetBool("isJumpingAnim", isJumping);
+        animator.SetBool("isJumpingAnim", jumpAction.triggered);
         animator.SetBool("isFallingAnim", rb.linearVelocityY < 0.1f);//not 0 because somtimes it does not fall when jump to platform
         animator.SetBool("isGroundAnim", isGrounded);
         animator.SetFloat("xVelocity", Mathf.Abs(rb.linearVelocityX));
