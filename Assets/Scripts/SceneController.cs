@@ -22,7 +22,7 @@ public class SceneController : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     #endregion
 
@@ -33,6 +33,8 @@ public class SceneController : MonoBehaviour
     }
     public void LoadMainMenuScene()
     {
+        SoundManager.Instance.PlaySFX("UI_Cilck");
+
         SceneManager.LoadScene(mianScene);
     }
     public void LoadLvl1Scene()
