@@ -17,13 +17,9 @@ public class StorySequencer : MonoBehaviour
 
     [SerializeField] GameObject continueButton;
 
-    //public PlayerController playerController;
-
-
     private void Start()
     {
         continueButton.SetActive(false);
-        //playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     private void FixedUpdate()
     {
