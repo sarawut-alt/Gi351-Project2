@@ -4,6 +4,7 @@ using UnityEngine;
 public class TutorialUIPopUp : MonoBehaviour
 {
     public GameObject UIPopUp;
+    public float timer = 5f;
 
     private void Start()
     {
@@ -22,8 +23,8 @@ public class TutorialUIPopUp : MonoBehaviour
     IEnumerator ShowPopUpUI()
     {
         float elapsedTime = 0f; // ตัวแปรนับเวลาที่ผ่านไป
-        float time = 5f;
-        while (elapsedTime < time)
+        
+        while (elapsedTime < timer)
         {
             elapsedTime += Time.deltaTime;
             yield return null;

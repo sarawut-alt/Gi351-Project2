@@ -2251,6 +2251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialUIPopUp
   UIPopUp: {fileID: 2044789768}
+  timer: 7
 --- !u!61 &244883828
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3977,63 +3978,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
---- !u!1001 &407447016
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3276842564388568136, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_Name
-      value: Checkpoint
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 107.07319
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6841943299668549724, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8930b2da2195c714fbab82ebb95ed234, type: 3}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4908,11 +4852,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5701627774130308468, guid: eccc531c385df2d44a6c874b4165b43e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.347075
+      value: 6.085905
       objectReference: {fileID: 0}
     - target: {fileID: 5701627774130308468, guid: eccc531c385df2d44a6c874b4165b43e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 140.91
+      value: 145.17
       objectReference: {fileID: 0}
     - target: {fileID: 5701627774130308468, guid: eccc531c385df2d44a6c874b4165b43e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -8839,6 +8783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialUIPopUp
   UIPopUp: {fileID: 1283199132}
+  timer: 7
 --- !u!61 &860399162
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13091,7 +13036,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.81825
+      value: 3.5534596
       objectReference: {fileID: 0}
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalScale.y
@@ -13107,7 +13052,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.17
+      value: 2.59
       objectReference: {fileID: 0}
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14741,7 +14686,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5701627774130308468, guid: eccc531c385df2d44a6c874b4165b43e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 119.66
+      value: 119.48
       objectReference: {fileID: 0}
     - target: {fileID: 5701627774130308468, guid: eccc531c385df2d44a6c874b4165b43e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -21867,6 +21812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TutorialUIPopUp
   UIPopUp: {fileID: 1085531611}
+  timer: 7
 --- !u!61 &2133347241
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -22818,4 +22764,3 @@ SceneRoots:
   - {fileID: 826160308}
   - {fileID: 551241308}
   - {fileID: 175946333}
-  - {fileID: 407447016}
