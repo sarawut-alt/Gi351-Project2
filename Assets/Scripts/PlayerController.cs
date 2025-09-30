@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isGrounded && isOnSlope && !canWalkOnSlope && !isJumping)
         {
-            newVelocity.Set(0.0f, -7f);
+            newVelocity.Set(0.0f, -20f);
 
         }
         else if (!isGrounded) //If in air
