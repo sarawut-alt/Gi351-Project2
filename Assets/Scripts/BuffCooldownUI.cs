@@ -18,19 +18,17 @@ public class BuffCooldownUI : MonoBehaviour
 
     private void Update()
     {
-        if (isStickyActive)
+        /*if (isStickyActive)
         {
-            StopCoroutine(CooldownUI());
+            isStickyActive = false;
             //img.fillAmount = 0;
             StartCoroutine(CooldownUI());
-            isStickyActive = false;
-        }
+            //CooldownUIAmin();
+        }*/
     }
 
     IEnumerator CooldownUI()
     {
-        img.fillAmount = 0;
-
         float elapsedTime = 0f; // ตัวแปรนับเวลาที่ผ่านไป
         while (elapsedTime < cooldownTime)
         {
@@ -45,4 +43,13 @@ public class BuffCooldownUI : MonoBehaviour
             yield return null;
         }
     }
+
+    public void CollectSticky()
+    {
+        StopAllCoroutines();
+        img.fillAmount = 0;
+        StartCoroutine(CooldownUI());
+    }
+
+
 }
