@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField]
     private float movementSpeed;
+    private float initialMoveMentSpeed;
     [SerializeField] private float gumSlowScale;
     [SerializeField]
     private float groundCheckRadius;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
         {
             originalColor = spriteRenderer.color;
         }
+        initialMoveMentSpeed = movementSpeed;
     }
 
     private void Update()
@@ -285,7 +287,7 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(StickyEffect(stickyEffectTime));
             collision.GetComponent<Sticky>().CollectSticky(stickyEffectTime);
-            GameManager.GetInstance().GetComponent<BuffCooldownUI>().isStickyActive = true;
+            GameManager.GetInstance().GetComponent<BuffCooldownUI>().CollectSticky();
         }
     }
 
@@ -309,8 +311,7 @@ public class PlayerController : MonoBehaviour
     {
         isSticky = true;
         canWalkOnSlope = true;
-        float temp = movementSpeed;
-        movementSpeed *= gumSlowScale;
+        movementSpeed = initialMoveMentSpeed * gumSlowScale;
 
         float elapsedTime = 0f; // ตัวแปรนับเวลาที่ผ่านไป
         // วนลูปจนกว่าเวลาที่ผ่านไปจะเท่ากับ disappearDelay
@@ -332,7 +333,7 @@ public class PlayerController : MonoBehaviour
         //yield return new WaitForSeconds(time);
         isSticky = false;
         canWalkOnSlope = true;
-        movementSpeed = temp;
+        movementSpeed = initialMoveMentSpeed;
     }
     private void SetAnimationVariables()
     {
