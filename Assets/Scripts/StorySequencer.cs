@@ -53,6 +53,7 @@ public class StorySequencer : MonoBehaviour
 
     public void OnContinueClicked()
     {
+        SoundManager.Instance.PlaySFX("UI_Cilck");
         gameObject.SetActive(false);
     }
 }

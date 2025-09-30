@@ -37,6 +37,7 @@ public class SceneController : MonoBehaviour
     }
     public void LoadLvl1Scene()
     {
+        SoundManager.Instance.PlaySFX("UI_Cilck");
         SceneManager.LoadScene(lv1Name);
     }
     public void LoadLvl2Scene()
@@ -50,6 +51,7 @@ public class SceneController : MonoBehaviour
 
     public void ExitGame()
     {
+        SoundManager.Instance.PlaySFX("UI_Cilck");
         Application.Quit();
     }
 }

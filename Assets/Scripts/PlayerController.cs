@@ -209,12 +209,21 @@ public class PlayerController : MonoBehaviour
     {
         if (canJump && isGrounded)
         {
+
             canJump = false;
             isJumping = true;
             //newVelocity.Set(0.0f, 0.0f);
             //rb.linearVelocity = newVelocity;
             newForce.Set(0.0f, jumpForce);
             rb.AddForce(newForce, ForceMode2D.Impulse);
+            if (isSticky)
+            {
+                SoundManager.Instance.PlaySFX("Jump_Stick");
+            }
+            else
+            {
+                SoundManager.Instance.PlaySFX("Jump");
+            }
         }
     }
     private void ApplyGravityModifiers()// make player fall faster
@@ -285,6 +294,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (collision.CompareTag("Sticky"))
         {
+            SoundManager.Instance.PlaySFX("Gum");
+
             StartCoroutine(StickyEffect(stickyEffectTime));
             collision.GetComponent<Sticky>().CollectSticky(stickyEffectTime);
             GameManager.GetInstance().GetComponent<BuffCooldownUI>().CollectSticky();

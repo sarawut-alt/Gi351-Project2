@@ -20,6 +20,8 @@ public class OutOfPlayZone : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySFX("GetHit");
+
             // ค้นหา Component PlayerRespawn ในตัวผู้เล่นแล้วเรียกฟังก์ชัน RespawnPlayer()
             PlayerRespawn player = other.GetComponent<PlayerRespawn>();
             if (player != null)

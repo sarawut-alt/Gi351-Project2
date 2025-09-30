@@ -14,6 +14,8 @@ public class FinishFlag : MonoBehaviour
             
             if (collision.gameObject.GetComponent<PlayerController>().GetStrawberry() >= StrawberryNeed)
             {
+                SoundManager.Instance.PlaySFX("Win");
+
                 gameManager.isWin = true;
             }
             else

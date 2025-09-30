@@ -63,6 +63,8 @@ public class DisappearingPlatform : MonoBehaviour
         // ทำให้แพลตฟอร์มมองไม่เห็นและไม่สามารถชนได้
         spriteRenderer.enabled = false;
         platformCollider.enabled = false;
+        SoundManager.Instance.PlaySFX("Cracker");
+
 
         // --- ส่วนของการกลับมาใหม่ ---
 

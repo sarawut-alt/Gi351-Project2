@@ -6,6 +6,8 @@ public class Strawberry : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            SoundManager.Instance.PlaySFX("GetCake");
+
             collision.gameObject.GetComponent<PlayerController>().AddStrawberry();
             Destroy(gameObject);
         }

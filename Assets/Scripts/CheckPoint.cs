@@ -4,15 +4,15 @@ public class Checkpoint : MonoBehaviour//ใส่ในจุดเช็คพ
 {
     public Color activeColor = Color.green; // สีที่จะเปลี่ยนเมื่อ Checkpoint ทำงานแล้ว
 
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer[] renderersToChangeColor;
     private bool isActivated = false;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        renderersToChangeColor = GetComponentsInChildren<SpriteRenderer>();
     }
 
-    // ฟังก์ชันนี้จะทำงานเมื่อมี Collider อื่นเข้ามาในพื้นที่ Trigger
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         // ตรวจสอบว่าเป็นผู้เล่น และ Checkpoint นี้ยังไม่เคยทำงาน
@@ -27,13 +27,16 @@ public class Checkpoint : MonoBehaviour//ใส่ในจุดเช็คพ
 
             Debug.Log("Checkpoint Activated at: " + transform.position);
 
-            // (ทางเลือก) เปลี่ยนสีเพื่อแสดงให้ผู้เล่นรู้ว่า Checkpoint ทำงานแล้ว
-            if (spriteRenderer != null)
+            //เปลี่ยนสีเพื่อแสดงให้ผู้เล่นรู้ว่า Checkpoint ทำงานแล้ว
+            foreach (SpriteRenderer rend in renderersToChangeColor)
             {
-                spriteRenderer.color = activeColor;
+                if (rend != null)
+                {
+                    rend.color = activeColor;
+                }
             }
 
-            
+            SoundManager.Instance.PlaySFX("CheckPoint");
         }
     }
 }
