@@ -126,10 +126,10 @@ TextureImporter:
       name: jump_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 664
-        width: 137
-        height: 208
+        x: 20
+        y: 694
+        width: 107
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -148,10 +148,10 @@ TextureImporter:
       name: jump_1
       rect:
         serializedVersion: 2
-        x: 137
-        y: 664
-        width: 137
-        height: 208
+        x: 156
+        y: 694
+        width: 109
+        height: 102
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,10 +170,10 @@ TextureImporter:
       name: jump_2
       rect:
         serializedVersion: 2
-        x: 274
-        y: 664
-        width: 137
-        height: 208
+        x: 291
+        y: 693
+        width: 113
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,10 +192,10 @@ TextureImporter:
       name: jump_3
       rect:
         serializedVersion: 2
-        x: 411
-        y: 664
-        width: 137
-        height: 208
+        x: 428
+        y: 693
+        width: 115
+        height: 105
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -214,10 +214,10 @@ TextureImporter:
       name: jump_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 456
-        width: 137
-        height: 208
+        x: 20
+        y: 475
+        width: 104
+        height: 113
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -236,10 +236,10 @@ TextureImporter:
       name: jump_5
       rect:
         serializedVersion: 2
-        x: 137
-        y: 456
-        width: 137
-        height: 208
+        x: 157
+        y: 474
+        width: 106
+        height: 134
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -258,10 +258,10 @@ TextureImporter:
       name: jump_6
       rect:
         serializedVersion: 2
-        x: 274
-        y: 456
-        width: 137
-        height: 208
+        x: 282
+        y: 486
+        width: 128
+        height: 141
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -280,10 +280,10 @@ TextureImporter:
       name: jump_7
       rect:
         serializedVersion: 2
-        x: 411
-        y: 456
-        width: 137
-        height: 208
+        x: 419
+        y: 530
+        width: 127
+        height: 119
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -302,10 +302,10 @@ TextureImporter:
       name: jump_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 248
-        width: 137
-        height: 208
+        x: 6
+        y: 324
+        width: 130
+        height: 112
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -324,10 +324,10 @@ TextureImporter:
       name: jump_9
       rect:
         serializedVersion: 2
-        x: 137
-        y: 248
-        width: 137
-        height: 208
+        x: 143
+        y: 325
+        width: 130
+        height: 111
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -346,10 +346,10 @@ TextureImporter:
       name: jump_10
       rect:
         serializedVersion: 2
-        x: 274
-        y: 248
-        width: 137
-        height: 208
+        x: 279
+        y: 328
+        width: 132
+        height: 108
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -368,10 +368,10 @@ TextureImporter:
       name: jump_11
       rect:
         serializedVersion: 2
-        x: 411
-        y: 248
-        width: 137
-        height: 208
+        x: 416
+        y: 324
+        width: 132
+        height: 112
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -390,10 +390,10 @@ TextureImporter:
       name: jump_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 40
-        width: 137
-        height: 208
+        x: 9
+        y: 80
+        width: 128
+        height: 116
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,10 +412,10 @@ TextureImporter:
       name: jump_13
       rect:
         serializedVersion: 2
-        x: 137
+        x: 158
         y: 40
-        width: 137
-        height: 208
+        width: 98
+        height: 109
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -434,10 +434,10 @@ TextureImporter:
       name: jump_14
       rect:
         serializedVersion: 2
-        x: 274
-        y: 40
-        width: 137
-        height: 208
+        x: 295
+        y: 39
+        width: 102
+        height: 105
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -456,10 +456,10 @@ TextureImporter:
       name: jump_15
       rect:
         serializedVersion: 2
-        x: 411
-        y: 40
-        width: 137
-        height: 208
+        x: 430
+        y: 39
+        width: 107
+        height: 103
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -488,7 +488,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":137.0,"y":208.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       jump_0: -1100795792
       jump_1: 621053889
