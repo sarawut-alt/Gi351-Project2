@@ -47,4 +47,9 @@ public class SceneController : MonoBehaviour
     {
         SceneManager.LoadScene(lv3Name);
     }
+
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
 }
