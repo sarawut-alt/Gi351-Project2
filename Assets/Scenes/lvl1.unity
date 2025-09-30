@@ -16139,7 +16139,11 @@ PrefabInstance:
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalScale.x
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: 2.378394
+=======
+      value: 3.6118114
+>>>>>>> Stashed changes
 =======
       value: 3.6118114
 >>>>>>> Stashed changes
@@ -16159,7 +16163,11 @@ PrefabInstance:
     - target: {fileID: 7927948455808122003, guid: 577a3f049d3ddea46b022436e515fbf2, type: 3}
       propertyPath: m_LocalPosition.y
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       value: -0.28
+=======
+      value: 0.083
+>>>>>>> Stashed changes
 =======
       value: 0.083
 >>>>>>> Stashed changes
