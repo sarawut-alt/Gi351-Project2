@@ -177,6 +177,10 @@ public class PlayerController : MonoBehaviour
         {
             canJump = true;
         }
+        if (isOnSlope && isSticky && !isJumping)
+        {
+            canJump = true;
+        }
 
 
 
