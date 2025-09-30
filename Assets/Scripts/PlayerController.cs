@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
 
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction pauseAction;
 
     private float xInput;
     [SerializeField]
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        pauseAction = InputSystem.actions.FindAction("Pause");
     }
 
     private void Start()
@@ -144,6 +146,10 @@ public class PlayerController : MonoBehaviour
         if (jumpAction.triggered)
         {
             Jump();
+        }
+        if (pauseAction.triggered)
+        {
+            GameManager.GetInstance().Pause();
         }
 
     }
@@ -299,7 +305,7 @@ public class PlayerController : MonoBehaviour
         else if (collision.CompareTag("Sticky"))
         {
             SoundManager.Instance.PlaySFX("Gum");
-
+            StopAllCoroutines();
             StartCoroutine(StickyEffect(stickyEffectTime));
             collision.GetComponent<Sticky>().CollectSticky(stickyEffectTime);
             GameManager.GetInstance().GetComponent<BuffCooldownUI>().CollectSticky();
