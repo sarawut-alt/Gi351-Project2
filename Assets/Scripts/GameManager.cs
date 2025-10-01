@@ -7,11 +7,17 @@ public class GameManager : MonoBehaviour
     public GameObject winPanel;
     public bool isPause = false;
     public GameObject pausePanel;
+
+    public GameObject[] Strawberry;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         winPanel.SetActive(false);
         pausePanel.SetActive(false);
+        for(int i = 0; i < Strawberry.Length; i++)
+        {
+            Strawberry[i].SetActive(true);
+        }
     }
     #region sigleton
     private static GameManager instance;
@@ -65,5 +71,10 @@ public class GameManager : MonoBehaviour
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
 
+    }
+
+    public void SetActiveStrawberry(int idx)
+    {
+        Strawberry[idx].SetActive(false);
     }
 }

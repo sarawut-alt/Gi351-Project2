@@ -368,6 +368,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddStrawberry()
     {
+        GameManager.GetInstance().SetActiveStrawberry(Strawberry);
         Strawberry++;
     }
     public int GetStrawberry()
